@@ -1,10 +1,12 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-const url = import.meta.env.VITE_SUPABASE_URL;
-const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// config.js holds the Supabase project URL and the PUBLIC anon/publishable key.
+// Never put the service_role key in this project.
+const cfg = await import('../config.js').catch(() => null);
+const url = cfg && cfg.SUPABASE_URL;
+const anonKey = cfg && cfg.SUPABASE_ANON_KEY;
 
-// Only the public anon key is ever used in the browser. Never put the service_role key here.
-export const configured = Boolean(url && anonKey);
+export const configured = Boolean(url && anonKey && !url.includes('YOUR-PROJECT-REF'));
 export const supabase = configured
   ? createClient(url, anonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } })
   : null;

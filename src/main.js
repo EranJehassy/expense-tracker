@@ -1,4 +1,3 @@
-import './styles.css';
 import { supabase, configured } from './supabase.js';
 import { showAuth, showRecovery } from './auth.js';
 import { loadAll, createSync } from './data.js';
@@ -558,7 +557,7 @@ function stopApp() { sync = null; currentUser = null; S = emptyState(); closeShe
 ACT.reload = () => location.reload();
 
 if (!configured) {
-  document.getElementById('app').innerHTML = `<div class="authwrap"><div class="card"><h3>חסרה הגדרת Supabase</h3><div class="note" style="font-size:14px;line-height:1.7">צור קובץ <b dir="ltr">.env</b> לפי <b dir="ltr">.env.example</b> עם <b dir="ltr">VITE_SUPABASE_URL</b> ו-<b dir="ltr">VITE_SUPABASE_ANON_KEY</b>, והפעל מחדש את שרת הפיתוח.</div></div></div>`;
+  document.getElementById('app').innerHTML = `<div class="authwrap"><div class="card"><h3>חסרה הגדרת Supabase</h3><div class="note" style="font-size:14px;line-height:1.7">צור קובץ <b dir="ltr">config.js</b> לפי <b dir="ltr">config.example.js</b> עם <b dir="ltr">SUPABASE_URL</b> ו-<b dir="ltr">SUPABASE_ANON_KEY</b>, ורענן את הדף.</div></div></div>`;
 } else {
   window.addEventListener('pagehide', () => { if (sync) sync.flush(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden && sync) sync.flush(); });
